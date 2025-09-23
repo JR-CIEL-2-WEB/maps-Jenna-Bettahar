@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Markers</title>
+</head>
+<body>
+  <div id="map" style="height: 100vh; width: 100%;"></div>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Y32T_PJHZxYcK3BJYJFNwSl6cuvLXpo&callback=initMap&v=weekly"
+    defer></script>
+
+  <script>
+    function initMap() {
+      const centerLatLng = { lat: 48.9591919, lng: 2.5476811 };
+
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 15,
+        center: centerLatLng,
+      });
+
+      fetch('markersJrostand.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Erreur lors du chargement du fichier JSON');
+          }
+          return response.json();
+        })
+        .then(locations => {
+          locations.forEach((location, index) => {
+            new google.maps.Marker({
+              position: location,
+              map,
+              title: `Marker ${index + 1}`,
+            });
+          });
+        })
+        .catch(error => {
+          console.error('Erreur lors du chargement des marqueurs :', error);
+        });
+    }
+
+    window.initMap = initMap;
+  </script>
+</body>
+</html>
