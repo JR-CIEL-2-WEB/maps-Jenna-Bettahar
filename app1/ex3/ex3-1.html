@@ -27,30 +27,46 @@
         // Ajax avec JQuery
     function loadDoc() {
         $.ajax({
-                url: // TODO1,
-                method: // TODO2,
-                dataType: // TODO3,
+                url: "markersJrostand.json",
+                method: "GET",
+                dataType: "json", 
                 success: function(markers){
-                    // TODO4 :
-                            /* markers representera un objet JSON retourné par le serveur */
-                            /*
-                                compléter le code de la fonction afin d'afficher les chaque coordonnée  à la console
-                            */
-
-                            /*
-                                vous utiliserez deux boucles for
-                                - boucle for classique sur markers
-                                - boucle for in sur marker
-                             */
-
-                            /*
-                                Créer des markers Google avec l'API Google Maps en utilisant l'objet renvoyé par
-                                le serveur web. Afficher votre map.
-                             */
-                    // fin  TODO4
+                    for (let i = 0; i < markers.length; i++) {
+                        let marker = markers[i];
+                        for (let key in marker) {
+                            console.log(key + ": " + marker[key]);
                         }
-            }
-        );
+                        console.log("____________");
+                    }
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                    center: markers[0],
+                    zoom: 15,
+                    mapTypeId: 'roadmap'
+                    })
+
+                    const pathCoords = [];
+
+                    markers.forEach((coord, i) => {
+                        const marker = new google.maps.Marker({
+                            position: coord,
+                            map: map,
+                            title: `Marker ${i+1}`
+                        });
+                        marker.addListener('click', () => {
+                        alert(`Vous avez cliqué sur le marker ${i+1}\n`);
+                    });
+                    pathCoords.push(coord);
+                    const polyline = new google.maps.Polyline({
+                        path: pathCoords,
+                        geodesic: true,
+                        strokeColor: "#FF0000",
+                        strokeOpacity: 1.0,
+                        strokeWeight: 2
+                    });
+                    polyline.setMap(map);
+                }
+                )}
+    });
     };
 
     </script>
