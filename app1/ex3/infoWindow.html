@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>JRostand InfoWindows</title>
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .infowindow-content img {
+      width: 200px;
+      height: auto;
+      display: block;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>2 lieux que j'apprécie ! :D</h1>
+  <div id="map"></div>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Y32T_PJHZxYcK3BJYJFNwSl6cuvLXpo"></script>
+  <script>
+    function initMap() {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 2,
+        center: { lat: 30, lng: 30 }, 
+      });
+
+      const lieux = [
+        {
+          position: { lat: 36.7528, lng: 3.0425 },
+          title: "Tour d'Alger",
+          image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Algiers_Tour.jpg/320px-Algiers_Tour.jpg",
+          description: "La Tour d'Alger est un monument emblématique d'Algérie."
+        },
+        {
+          position: { lat: 29.9792, lng: 31.1342 },
+          title: "Pyramide de Gizeh",
+          image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/320px-Kheops-Pyramid.jpg",
+          description: "La Grande Pyramide de Gizeh, construite vers 2560 av. J.-C., est l'une des Sept Merveilles du monde antique."
+        },
+
+      ];
+
+      lieux.forEach(lieu => {
+        const contentString = `
+          <div class="infowindow-content">
+            <h2>${lieu.title}</h2>
+            <img src="${lieu.image}" alt="${lieu.title}">
+            <p>${lieu.description}</p>
+          </div>
+        `;
+
+        const infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        const marker = new google.maps.Marker({
+          position: lieu.position,
+          map,
+          title: lieu.title
+        });
+
+        marker.addListener("click", () => {
+          infowindow.open({
+            anchor: marker,
+            map
+          });
+        });
+      });
+    }
+
+    window.initMap = initMap;
+    window.onload = initMap;
+  </script>
+
+</body>
+
+</html>
