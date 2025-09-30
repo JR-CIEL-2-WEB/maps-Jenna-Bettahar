@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>JRostand Stade Polylignes</title>
+    <style type="text/css">
+        #map {
+            height: 100%;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>JRostand Reperes Stade</h1>
+<hr>
+<div id="map"></div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Y32T_PJHZxYcK3BJYJFNwSl6cuvLXpo"></script>
+
+<script>
+    let markers = [];
+
+    window.onload = loadDoc;
+
+    function loadDoc() {
+        fetch("markersJrostand.json")
+            .then(response => {
+                if (!response.ok) throw new Error("Erreur HTTP " + response.status);
+                return response.json();
+            })
+            .then(data => {
+                markers = data;
+
+                for (let i = 0; i < markers.length; i++) {
+                    let marker = markers[i];
+                    for (let key in marker) {
+                        console.log(key + ": " + marker[key]);
+                    }
+                    console.log("___________");
+                }
+
+                initMap();
+            })
+            .catch(err => console.error("Erreur fetch :", err));
+    }
+
+    function initMap() {
+        const options = {
+            center: new google.maps.LatLng(48.95930033308523, 2.5477890651742516),
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        const map = new google.maps.Map(document.getElementById("map"), options);
+
+        const pathCoords = [];
+
+        for (let i = 0; i < markers.length; i++) {
+            const latlng = markers[i];
+
+            new google.maps.Marker({
+                position: latlng,
+                map: map
+            });
+
+            pathCoords.push(latlng);
+        }
+
+        const polyline = new google.maps.Polyline({
+            path: pathCoords,
+            geodesic: true,
+            strokeColor: "#FF0000",
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+
+        polyline.setMap(map);
+    }
+</script>
+
+</body>
+</html>

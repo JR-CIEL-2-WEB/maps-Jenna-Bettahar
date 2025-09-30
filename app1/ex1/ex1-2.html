@@ -228,8 +228,16 @@
 	document.getElementById("Button1").addEventListener('click',readTab);
 
 	function readTab(){
-       //TODO
+      var tabCDs = JSON.parse(CDs);
 
+      for(let i = 0; i < tabCDs.length; i++){
+            console.log("CD "+(i + 1));
+            let cd = tabCDs[i];
+
+            for(j in cd){
+                console.log(j+": "+cd[j]);
+            }
+      }
 	}
 
 </script>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Markers</title>
+</head>
+<body>
+  <div id="map" style="height: 100vh; width: 100%;"></div>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Y32T_PJHZxYcK3BJYJFNwSl6cuvLXpo&callback=initMap&v=weekly"
+    defer>
+  </script>
+
+  <script>
+    function initMap() {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 15,
+        center: { lat: 48.9591919, lng: 2.5476811 },
+      });
+
+      const bounds = new google.maps.LatLngBounds();
+
+      const locations = [
+        { lat: 48.95930033308523, lng: 2.5477890651742516 },
+        { lat: 48.95901659236071, lng: 2.544364368005043 },
+        { lat: 48.96083250510581, lng: 2.5428194730675138 },
+        { lat: 48.96334006261106, lng: 2.5503223316267305 },
+        { lat: 48.96146800531762, lng: 2.553135524155863 },
+        { lat: 48.95997156116078, lng: 2.548567662388221 }
+      ];
+
+      locations.forEach((location, index) => {
+        new google.maps.Marker({
+          position: location,
+          map,
+          title: `Marker ${index + 1}`
+        });
+
+        bounds.extend(location);
+      });
+
+      map.fitBounds(bounds);
+    }
+
+    window.initMap = initMap;
+  </script>
+</body>
+</html>
