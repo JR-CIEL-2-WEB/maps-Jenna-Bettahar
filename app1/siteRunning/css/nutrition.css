@@ -1,0 +1,152 @@
+body {
+ background-image: url('../img/fond.jpg');
+}
+
+.desktop-main-menu {
+    margin-bottom: 20px;
+    text-align: left;
+    background-color: rgba(184, 156, 123, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+}
+
+.nutripart {
+    padding-top: 70px;
+    margin-left: 20px;
+}
+
+.nutripart h4 {
+    color: #000;
+    text-shadow: 1px 1px 3px white;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+  }
+
+.nutripart h2 {
+    color: #000;
+    text-shadow: 1px 1px 3px white;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.nutripart p {
+    color: #000;
+    text-shadow: 1px 1px 3px white;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+h1 {
+    margin-bottom: 20px;
+    text-align: left;
+    background-color: rgba(184, 156, 123, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    text-align: left;
+    background-color: rgba(184, 156, 123, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+  }
+
+  h3 {
+    margin-bottom: 20px;
+    text-align: left;
+    background-color: rgba(184, 156, 123, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+  }
+
+  .recette-healthy h4 {
+    margin-bottom: 20px;
+    text-align: left;
+    background-color: rgba(184, 156, 123, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+  }
+  
+  p {
+    text-align: left;
+    margin-bottom: 20px;
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+  }
+
+.recette-healthy ul {
+    color: #000;
+    text-shadow: 1px 1px 3px white;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    margin-bottom: 20px;
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    border-radius: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.recette-healthy ol {
+  color: #000;
+  text-shadow: 1px 1px 3px white;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  margin-bottom: 20px;
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  border-radius: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  display: inline-block;
+}
+
+
+.recette-healthy img.recette-image {
+  border: 30px;
+  width: 600px;
+  height: auto;
+  float: right;
+  margin-right: 100px;
+  margin-top: 100px;
+  background-color: rgba(184, 156, 123, 0.8);
+  padding: 50px;
+  border-radius: 30px;
+}
+
+.intro {
+    margin-bottom: 20px;
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+}
+
+  
+
+  
