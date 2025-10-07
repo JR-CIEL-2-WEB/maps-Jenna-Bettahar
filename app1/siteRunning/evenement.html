@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Événements Running - Courses</title>
+  <link rel="stylesheet" href="css/evenement.css" />
+  <style>
+    #map { height: 500px; width: 100%; margin-top: 20px; }
+    .infowindow-content { font-family: Arial, sans-serif; font-size: 14px; color: black; }
+    body { background-color: white; color: black; font-family: Arial, sans-serif; padding: 20px; }
+    select { font-size: 16px; padding: 5px; }
+  </style>
+</head>
+<body>
+
+  <h1>Choisissez une course à afficher</h1>
+  <select id="courseSelect">
+    <option value="">-- Sélectionnez une course --</option>
+  </select>
+
+  <div id="map"></div>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Y32T_PJHZxYcK3BJYJFNwSl6cuvLXpo"></script>
+  <script>
+    let map;
+    let markers = [];
+    let polyline;
+    let infoWindow;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 48.9593, lng: 2.5477 },
+        zoom: 14
+      });
+      infoWindow = new google.maps.InfoWindow();
+
+      fetch('courses.json')
+        .then(response => response.json())
+        .then(data => {
+          const select = document.getElementById('courseSelect');
+
+          // Remplir le menu déroulant avec les courses
+          data.forEach(course => {
+            const option = document.createElement('option');
+            option.value = course.id;
+            option.textContent = course.name;
+            select.appendChild(option);
+          });
+
+          // Quand on change la sélection
+          select.addEventListener('change', () => {
+            const selectedId = parseInt(select.value);
+            const course = data.find(c => c.id === selectedId);
+
+            if (!course) {
+              clearMap();
+              return;
+            }
+            displayCourse(course);
+          });
+        })
+        .catch(err => console.error('Erreur chargement courses.json:', err));
+    }
+
+    function clearMap() {
+      markers.forEach(m => m.setMap(null));
+      markers = [];
+      if(polyline) {
+        polyline.setMap(null);
+        polyline = null;
+      }
+      infoWindow.close();
+    }
+
+    function displayCourse(course) {
+      clearMap();
+
+      const path = course.markers.map(m => ({ lat: m.lat, lng: m.lng }));
+      
+      // Recentrer la map sur le premier point
+      if(path.length > 0) {
+        map.setCenter(path[0]);
+      }
+
+      // Ajouter markers
+      course.markers.forEach((point, index) => {
+        const marker = new google.maps.Marker({
+          position: { lat: point.lat, lng: point.lng },
+          map: map,
+          label: `${index + 1}`
+        });
+
+        marker.addListener('click', () => {
+          infoWindow.setContent(`<div class="infowindow-content"><strong>${course.name} - Point ${index + 1}</strong><br>Lat: ${point.lat}<br>Lng: ${point.lng}</div>`);
+          infoWindow.open(map, marker);
+        });
+
+        markers.push(marker);
+      });
+
+      // Tracer la polyline
+      polyline = new google.maps.Polyline({
+        path: path,
+        geodesic: true,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 3
+      });
+      polyline.setMap(map);
+    }
+
+    window.onload = initMap;
+  </script>
+</body>
+</html>
